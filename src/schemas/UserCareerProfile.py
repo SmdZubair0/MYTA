@@ -1,6 +1,6 @@
 from datetime import date
-from pydantic import BaseModel
 from typing import List, Optional
+from pydantic import BaseModel, HttpUrl
 
 class BasicInfo(BaseModel):
     name:str
@@ -52,6 +52,15 @@ class Constraints(BaseModel):
     open_to_realocation: str
     preferred_company_type: str
 
+class Project(BaseModel):
+    title: str
+    description: str
+    role: Optional[str] = None
+    tech_stack: List[str]
+    github_url: Optional[HttpUrl] = None
+    live_url: Optional[HttpUrl] = None
+    duration: Optional[str] = None
+
 class UserCareerProfile(BaseModel):
     basic_profile: BasicInfo
     career_preferences: CareerPreferences
@@ -59,5 +68,6 @@ class UserCareerProfile(BaseModel):
     experience: List[Experience]
     skills: Skills
     online_presence: Optional[OnlinePresence] = None
+    projects: Optional[List[Project]] = []
     resume: Optional[ResumeMetadata] = None
     constraints: Optional[Constraints] = None
