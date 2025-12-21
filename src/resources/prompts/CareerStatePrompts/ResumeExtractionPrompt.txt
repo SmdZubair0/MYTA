@@ -1,0 +1,54 @@
+You are an expert resume parser.
+
+Extract structured information from the resume below.
+
+Rules:
+- Do NOT hallucinate missing data
+- Return empty string if any information in the form of str is missing
+- Return empty arrays if information is missing
+- Dates must be ISO format (YYYY-MM or YYYY)
+- Skills must be deduplicated
+
+Return STRICT JSON in this format:
+
+{
+  "education": [
+    {
+      "institution_name": "",
+      "degree": "",
+      "field_of_study": "",
+      "graduation_year": 0,
+      "score_or_percentage": null
+    }
+  ],
+  "experience": [
+    {
+      "company_name": "",
+      "designation": "",
+      "role_type": "",
+      "start_date": "",
+      "end_date": null,
+      "responsibilities_summary": "",
+      "tech_stack_used": []
+    }
+  ],
+  "skills": {
+    "technical": [],
+    "tools": [],
+    "frameworks": [],
+    "domains": [],
+    "soft_skills": []
+  },
+  "projects": [
+    {
+      "title": "",
+      "description": "",
+      "tech_stack": [],
+      "github_url": null,
+      "live_url": null
+    }
+  ]
+}
+
+Resume:
+{{resume_text}}
