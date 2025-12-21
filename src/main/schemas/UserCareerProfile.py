@@ -25,8 +25,8 @@ class Experience(BaseModel):
     company_name: str
     designation: str
     role_type: Optional[str] = None
-    start_date: date
-    end_date: Optional[date] = None
+    start_date: str
+    end_date: Optional[str] = None
     responsibilities_summary: Optional[str] = None
     tech_stack_used: Optional[List[str]] = None
 
