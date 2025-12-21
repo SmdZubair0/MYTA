@@ -1,0 +1,1 @@
+{'education_summary': 'B.Tech in Computer Science from XYZ Institute of Technology (2023) and B.Tech in Mechanical from G.Pullaiah College of Engineering and Technology (2025), with prior education including Intermediate (M.P.C) from Narayana Junior College, Kurnool (2021) and 10th (SSC) from KVR English Medium High School, Kurnool (2019).'}
