@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 
 from src.main.agents import LLMClient
 from src.main.tools.PDFReader import PDFReader
+from src.main.utils.textHelpers import extract_json
 from src.main.utils.PromptReader import PromptReader
-from src.main.utils.extractJSONFromLLM import extract_json
 from src.main.schemas.UserCareerProfile import Education, Experience, Skills, Project
 from src.main.schemas.ResumeExtraction import ResumeExtractionInput, ResumeExtractedData
 
