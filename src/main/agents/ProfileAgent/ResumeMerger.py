@@ -5,7 +5,7 @@ from src.main.schemas.UserCareerProfile import *
 from src.main.utils.textHelpers import normalize_text
 from src.main.schemas.UserCareerProfile import Project
 from src.main.utils.timeHelpers import dates_overlap, parse_year_month
-from src.main.schemas.ResumeExtraction import ResumeExtractedData, ResumeMergeInput, ResumeMergeOutput
+from src.main.schemas.ResumeExtraction import ResumeMergeInput, ResumeMergeOutput
 
 def is_same_company(a, b) -> bool:
     return bool(
@@ -119,6 +119,7 @@ def ResumeMergeNode(state: ResumeMergeInput) -> ResumeMergeOutput:
 
 
 if __name__ == "__main__":
+    pass
     # userProfile = UserCareerProfile(
     #     basic_profile=BasicInfo(
     #         name="Zubair Shaik",
