@@ -14,3 +14,4 @@ class ProfileProcessingState(BaseModel):
     project_summaries: List[str] = []
     skills_summary: List[str] = []
     strengths: List[str] = []
+    skill_gaps: List[str] = []
