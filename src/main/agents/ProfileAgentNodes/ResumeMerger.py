@@ -49,7 +49,7 @@ def project_matches(p1: Project, p2: Project) -> bool:
             p1.live_url and p2.live_url and p1.live_url == p2.live_url
         ])
 
-def ResumeMergeNode(state: ResumeMergeInput) -> ResumeMergeOutput:
+def resumeMergeNode(state: ResumeMergeInput) -> ResumeMergeOutput:
 
     profile = deepcopy(state.existing_profile)
     resume = state.extracted_resume_data
