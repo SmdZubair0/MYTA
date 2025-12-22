@@ -7,7 +7,9 @@ PROMPT_PATHS = {
     "education summary" : Path("EducationSummarizerPrompt.txt"),
     "experience summary" : Path("ExperienceSummarizerPrompt.txt"),
     "project summary": Path("ProjectSummarizerPrompt.txt"),
-    "skills summary": Path("SkillsSummarizerPrompt.txt")
+    "skills summary": Path("SkillsSummarizerPrompt.txt"),
+    "target roles" : Path("TargetRolesPrompt.txt"),
+    "strengths" : Path("StrengthsPrompt.txt")
 }
 
 class PromptReader:
