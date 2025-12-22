@@ -1,1 +1,3 @@
 {'education_summary': 'B.Tech in Computer Science from XYZ Institute of Technology (2023) and B.Tech in Mechanical from G.Pullaiah College of Engineering and Technology (2025), with prior education including Intermediate (M.P.C) from Narayana Junior College, Kurnool (2021) and 10th (SSC) from KVR English Medium High School, Kurnool (2019).'}
+
+{'experience_summaries': ['Associate Software Engineer at ABC Tech Solutions, building and maintaining automation frameworks and AI workflows.', 'Interned in Full Stack Development, designing and developing responsive UI components using MERN stack.'], 'career_stage': 'junior'}
