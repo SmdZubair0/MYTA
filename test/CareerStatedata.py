@@ -5,3 +5,7 @@
 {'project_summaries': ['Developed an LLM-based system to analyze resumes and recommend career paths with code available on GitHub', 'Built a fully responsive and user-friendly Netflix clone using HTML and CSS', 'Created an interactive Rock, Paper and Scissor game using HTML, CSS, and JavaScript']}
 
 {'skills_summary': ['JavaScript', 'HTML', 'CSS', 'Python', 'Java', 'Git', 'Docker', 'MySQL', 'React JS', 'Machine Learning', 'Deep Learning', 'Automation', 'FastAPI']}
+
+{'strengths': ['Automation framework development', 'AI workflow maintenance', 'Full stack development', 'Responsive UI component design', 'Machine learning model implementation', 'Cloud-based system deployment with Docker']}
+
+{'target_roles': ['AI Engineer', 'Machine Learning Engineer', 'Junior Data Scientist', 'Automation Specialist - AI', 'ML Developer']}
