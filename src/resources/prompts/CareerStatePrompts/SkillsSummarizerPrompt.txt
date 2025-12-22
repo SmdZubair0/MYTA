@@ -1,0 +1,27 @@
+You are an expert technical profile analyzer.
+
+Given a user's skills, tech stacks, and summarized experience, produce a prioritized skill list.
+
+Rules:
+- Do NOT invent skills
+- Rank skills by evidence of real usage
+- Experience usage > project usage > self-declared
+- Merge equivalent skills (e.g., Python3 → Python)
+- Keep canonical industry names
+- Output a single ordered list
+- Do NOT explain ranking
+
+Return ONLY JSON in this format:
+{
+  "skills_summary": ["skill1", "skill2", "..."]
+}
+
+Skill Sources:
+Explicit Skills:
+{{explicit_skills}}
+
+Experience Summaries:
+{{experience_summaries}}
+
+Projects summaries:
+{{project_summaries}}

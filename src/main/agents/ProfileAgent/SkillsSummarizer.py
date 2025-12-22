@@ -4,39 +4,43 @@ from dotenv import load_dotenv
 from src.main.agents import LLMClient
 from src.main.utils.textHelpers import extract_json
 from src.main.utils.PromptReader import PromptReader
-from src.main.utils.schemaStructures import format_experience_for_prompt
+from src.main.utils.schemaStructures import format_skills_for_prompt
 from src.main.schemas.ProfileProcessingState import ProfileProcessingState
 
 
 promptReader = PromptReader()
-EXPERIENCE_SUMMARIZATION_PROMPT = promptReader.read("experience summary")
+SKILLS_SUMMARIZATION_PROMPT = promptReader.read("skills summary")
 
-def experienceSummarizationNode(ProfileState : ProfileProcessingState) -> ProfileProcessingState:
+def skillsSummarizationNode(ProfileState : ProfileProcessingState) -> ProfileProcessingState:
     state = ProfileState.user_profile
 
-    if not state.experience:
-        return {"experience_summaries" : ""}
+    if not state.skills:
+        return {"skills_summary" : []}
     
-    experience_data = format_experience_for_prompt(state.experience)
+    skills_data = format_skills_for_prompt(state.skills)
+    experiences = ", ".join(ProfileState.experience_summaries)
+    projects = ", ".join(ProfileState.project_summaries)
     
     llm_response = LLMClient.generate(
-        prompt=EXPERIENCE_SUMMARIZATION_PROMPT.replace("{{experience_data}}", experience_data)
+        prompt=SKILLS_SUMMARIZATION_PROMPT
+        .replace("{{explicit_skills}}", skills_data)
+        .replace("{{experience_summaries}}", experiences)
+        .replace("{{project_summaries}}", projects)
     )
 
     try:
         structured_data = extract_json(llm_response)
     except json.JSONDecodeError:
-        return {"experience_summaries" : ""}
+        return {"skills_summary" : []}
 
     return {
-        "experience_summaries" : structured_data.get("experience_summaries",[]),
-        "career_stage" : structured_data.get("career_stage", "")
+        "skills_summary" : structured_data.get("skills_summary",[])
     }
 
 
 if __name__ == "__main__":
     load_dotenv()
-    # userProfile= ProfileProcessingState(
+    # userProfile = ProfileProcessingState(
     #     user_profile=UserCareerProfile(
     #         basic_profile=BasicInfo(
     #             name="Zubair Shaik",
@@ -224,9 +228,24 @@ if __name__ == "__main__":
     #             preferred_company_type="Product-based"
     #         )
     #     ),
-    #     education_summary="",
-    #     experience_summaries=[],
-    #     career_stage="",
-    #     project_summaries=[]
+    #     education_summary=(
+    #         "B.Tech in Computer Science from XYZ Institute of Technology (2023) "
+    #         "and B.Tech in Mechanical from G.Pullaiah College of Engineering and Technology (2025), "
+    #         "with prior education including Intermediate (M.P.C) from Narayana Junior College, "
+    #         "Kurnool (2021) and 10th (SSC) from KVR English Medium High School, Kurnool (2019)."
+    #     ),
+    #     experience_summaries=[
+    #         "Associate Software Engineer at ABC Tech Solutions, building and maintaining "
+    #         "automation frameworks and AI workflows.",
+    #         "Interned in Full Stack Development, designing and developing responsive UI "
+    #         "components using MERN stack."
+    #     ],
+    #     career_stage="junior",
+    #     project_summaries=[
+    #         "Developed an LLM-based system to analyze resumes and recommend career paths "
+    #         "with code available on GitHub",
+    #         "Built a fully responsive and user-friendly Netflix clone using HTML and CSS",
+    #         "Created an interactive Rock, Paper and Scissor game using HTML, CSS, and JavaScript"
+    #     ]
     # )
-    # print(experienceSummarizationNode(userProfile))
+    # print(skillsSummarizationNode(userProfile))

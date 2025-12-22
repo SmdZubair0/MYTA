@@ -4,33 +4,32 @@ from dotenv import load_dotenv
 from src.main.agents import LLMClient
 from src.main.utils.textHelpers import extract_json
 from src.main.utils.PromptReader import PromptReader
-from src.main.utils.schemaStructures import format_experience_for_prompt
+from src.main.utils.schemaStructures import format_projects_for_prompt
 from src.main.schemas.ProfileProcessingState import ProfileProcessingState
 
 
 promptReader = PromptReader()
-EXPERIENCE_SUMMARIZATION_PROMPT = promptReader.read("experience summary")
+PROJECTS_SUMMARIZATION_PROMPT = promptReader.read("project summary")
 
-def experienceSummarizationNode(ProfileState : ProfileProcessingState) -> ProfileProcessingState:
+def projectsSummarizationNode(ProfileState : ProfileProcessingState) -> ProfileProcessingState:
     state = ProfileState.user_profile
 
     if not state.experience:
-        return {"experience_summaries" : ""}
+        return {"project_summaries" : []}
     
-    experience_data = format_experience_for_prompt(state.experience)
+    project_data = format_projects_for_prompt(state.projects)
     
     llm_response = LLMClient.generate(
-        prompt=EXPERIENCE_SUMMARIZATION_PROMPT.replace("{{experience_data}}", experience_data)
+        prompt=PROJECTS_SUMMARIZATION_PROMPT.replace("{{project_data}}", project_data)
     )
 
     try:
         structured_data = extract_json(llm_response)
     except json.JSONDecodeError:
-        return {"experience_summaries" : ""}
+        return {"project_summaries" : []}
 
     return {
-        "experience_summaries" : structured_data.get("experience_summaries",[]),
-        "career_stage" : structured_data.get("career_stage", "")
+        "project_summaries" : structured_data.get("project_summaries",[])
     }
 
 
@@ -229,4 +228,4 @@ if __name__ == "__main__":
     #     career_stage="",
     #     project_summaries=[]
     # )
-    # print(experienceSummarizationNode(userProfile))
+    # print(projectsSummarizationNode(userProfile))
