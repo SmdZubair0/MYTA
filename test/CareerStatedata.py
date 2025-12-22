@@ -9,3 +9,5 @@
 {'strengths': ['Automation framework development', 'AI workflow maintenance', 'Full stack development', 'Responsive UI component design', 'Machine learning model implementation', 'Cloud-based system deployment with Docker']}
 
 {'target_roles': ['AI Engineer', 'Machine Learning Engineer', 'Junior Data Scientist', 'Automation Specialist - AI', 'ML Developer']}
+
+{'skill_gaps': ['Node.js', 'Cloud Computing', 'NoSQL Databases', 'Data Preprocessing']}
