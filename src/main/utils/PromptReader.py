@@ -4,7 +4,8 @@ from src.main.core.config import settings
 
 PROMPT_PATHS = {
     "resume reader" : Path("ResumeExtractionPrompt.txt"),
-    "education summary" : Path("EducationSummarizerPrompt.txt")
+    "education summary" : Path("EducationSummarizerPrompt.txt"),
+    "experience summary" : Path("ExperienceSummarizerPrompt.txt")
 }
 
 class PromptReader:
