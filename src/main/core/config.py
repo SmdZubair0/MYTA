@@ -12,8 +12,12 @@ class Settings(BaseSettings):
     timeout : int = 30
 
     # Paths
-    careerStatePromptsPath:Path = Path("src/resources/prompts/CareerStatePrompts")
+    promptsPath:Path = Path("src/resources/prompts/")
     resumesPath:Path = Path("src/resources/resumes")
+
+    # recommendation configs
+    MIN_FIT_SCORE: float = 0.45
+    MAX_RECOMMENDATIONS: int = 5
 
     class Config:
         env_file = Path(__file__).resolve().parents[3] / ".env"

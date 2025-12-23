@@ -2,6 +2,7 @@ from .CareerState import *
 from .ResumeExtraction import *
 from .UserCareerProfile import *
 from .ProfileProcessingState import *
+from .JobSearchState import *
 
 __all__ = [
     "UserCareerProfile",
@@ -19,5 +20,7 @@ __all__ = [
     "ResumeExtractedData",
     "ResumeMergeInput",
     "ResumeMergeOutput",
-    "ProfileProcessingState"
+    "ProfileProcessingState",
+    "JobSearchState",
+    "JobPosting"
 ]
