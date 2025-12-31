@@ -8,6 +8,19 @@ class SalaryRange(BaseModel):
     min: float
     max: float
 
+class JobSearchTarget(BaseModel):
+    source: str          # linkedin, indeed, google_jobs
+    search_url: str
+    query: str
+
+class RawJobPosting(BaseModel):
+    title: Optional[str]
+    company: Optional[str]
+    location: Optional[str]
+    description: Optional[str]
+    url: str
+    source: str            # linkedin | indeed | naukri
+
 class JobPosting(BaseModel):
     job_id: Optional[str] = None
     title: str
@@ -37,9 +50,11 @@ class JobSearchState(BaseModel):
 
     # generated
     search_queries: List[str] = []
+
+    raw_jobs: List[RawJobPosting] = []
     discovered_jobs: List[JobPosting] = []
     normalized_jobs: List[JobPosting] = []
-    search_urls: List[str] = []
+    search_targets: List[JobSearchTarget] = []
 
     filtered_jobs: List[JobPosting] = []
     rejected_jobs: Optional[List[RejectedJob]] =[]
@@ -47,6 +62,4 @@ class JobSearchState(BaseModel):
     scored_jobs: List[ScoredJobPosting] = []
     recommended_jobs: List[ScoredJobPosting] = []
 
-    # metadata
     search_timestamp: Optional[datetime] = None
-

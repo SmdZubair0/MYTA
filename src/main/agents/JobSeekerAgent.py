@@ -5,7 +5,7 @@ from src.main.schemas.JobSearchState import JobSearchState
 # Nodes
 from src.main.agents.JobSeekerNodes.JobFilterNode import job_filter_node
 from src.main.agents.JobSeekerNodes.JobFitScoreNode import job_fit_scoring_node
-from src.main.agents.JobSeekerNodes.JobSearcherNodes import job_search_intent_node
+from main.agents.JobSeekerNodes.JobSearcherNode import job_search_intent_node
 from src.main.agents.JobSeekerNodes.JobRecommendationNode import job_recommendation_node
 
 
