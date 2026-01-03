@@ -3,14 +3,16 @@ from pathlib import Path
 from src.main.core.config import settings
 
 PROMPT_PATHS = {
-    "resume reader" : Path("ResumeExtractionPrompt.txt"),
-    "education summary" : Path("EducationSummarizerPrompt.txt"),
-    "experience summary" : Path("ExperienceSummarizerPrompt.txt"),
-    "project summary": Path("ProjectSummarizerPrompt.txt"),
-    "skills summary": Path("SkillsSummarizerPrompt.txt"),
-    "target roles" : Path("TargetRolesPrompt.txt"),
-    "strengths" : Path("StrengthsPrompt.txt"),
-    "skills gap" : Path("SkillsGapPrompt.txt")
+    "resume reader" : Path("CareerStatePrompts/ResumeExtractionPrompt.txt"),
+    "education summary" : Path("CareerStatePrompts/EducationSummarizerPrompt.txt"),
+    "experience summary" : Path("CareerStatePrompts/ExperienceSummarizerPrompt.txt"),
+    "project summary": Path("CareerStatePrompts/ProjectSummarizerPrompt.txt"),
+    "skills summary": Path("CareerStatePrompts/SkillsSummarizerPrompt.txt"),
+    "target roles" : Path("CareerStatePrompts/TargetRolesPrompt.txt"),
+    "strengths" : Path("CareerStatePrompts/StrengthsPrompt.txt"),
+    "skills gap" : Path("CareerStatePrompts/SkillsGapPrompt.txt"),
+    "job intent" : Path("JobSeekerPrompts/JobSearchIntentPrompt.txt"),
+    "job fit score" : Path("JobSeekerPrompts/FitScorePrompt.txt")
 }
 
 class PromptReader:
@@ -19,7 +21,7 @@ class PromptReader:
 
     def read(self, type : str) -> str:
         if type not in self.prompts.keys():
-            path = settings.careerStatePromptsPath / PROMPT_PATHS[type.lower().strip()]
+            path = settings.promptsPath / PROMPT_PATHS[type.lower().strip()]
             with open(path, "r") as f:
                 self.prompts[type] = f.read()
         
