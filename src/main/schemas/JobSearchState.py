@@ -8,6 +8,22 @@ class SalaryRange(BaseModel):
     min: float
     max: float
 
+class JobSearchTarget(BaseModel):
+    source: str          # linkedin, indeed, google_jobs
+    search_url: str
+    query: str
+
+class RawJobPosting(BaseModel):
+    title: Optional[str] = None
+    company: Optional[str] = None
+    location: Optional[str] = None
+    description: Optional[str] = None
+    job_type: Optional[List[str]] = None
+    employment_type: Optional[List[str]] = None
+    career_stage: Optional[List[str]] = None
+    url: str
+    source: str
+
 class JobPosting(BaseModel):
     job_id: Optional[str] = None
     title: str
@@ -17,7 +33,7 @@ class JobPosting(BaseModel):
     description: Optional[str] = None
     url: str
     source: str                # linkedin / company_site / other
-    salary_range: SalaryRange = None
+    salary_range: Optional[SalaryRange] = None
     career_stage: Literal["junior", "mid", "senior", "unknown"]
 
 class RejectedJob(BaseModel):
@@ -37,9 +53,10 @@ class JobSearchState(BaseModel):
 
     # generated
     search_queries: List[str] = []
-    discovered_jobs: List[JobPosting] = []
+    search_targets: List[JobSearchTarget] = []
+
+    raw_jobs: List[RawJobPosting] = []
     normalized_jobs: List[JobPosting] = []
-    search_urls: List[str] = []
 
     filtered_jobs: List[JobPosting] = []
     rejected_jobs: Optional[List[RejectedJob]] =[]
@@ -47,6 +64,4 @@ class JobSearchState(BaseModel):
     scored_jobs: List[ScoredJobPosting] = []
     recommended_jobs: List[ScoredJobPosting] = []
 
-    # metadata
     search_timestamp: Optional[datetime] = None
-

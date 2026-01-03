@@ -1,15 +1,17 @@
+from cv2 import norm
 from src.main.utils.textHelpers import normalize_text
 from src.main.schemas.JobSearchState import JobSearchState, RejectedJob, SalaryRange
 
-def job_type_allowed(job_type: str, preferences: list[str]) -> bool:
+def job_type_allowed(job_type: str | None, preferences: list[str]) -> bool:
+    if not job_type or job_type == "unknown":
+        return True
+
     job = normalize_text(job_type)
     prefs = {normalize_text(p) for p in preferences}
 
-    # If user selected hybrid → allow everything
     if "hybrid" in prefs:
         return True
 
-    # Otherwise, strict match
     return job in prefs
 
 
@@ -46,17 +48,21 @@ def salary_mismatch(job_salary: SalaryRange | None, expected_ctc: float | None) 
     return False
 
 
-def role_mismatch(job_title: str, target_roles: list[str], skills: list[str]) -> bool:
+def role_mismatch(job_title: str, target_roles: list[str], skills: list[str], career_stage: str) -> bool:
     title = normalize_text(job_title)
 
     if any(normalize_text(role) in title for role in target_roles):
         return False
 
-    if any(normalize_text(skill) in title for skill in skills[:10]):
-        return False
+    # Senior roles may not contain exact titles
+    if career_stage == "senior":
+        if any(normalize_text(skill) in title for skill in skills[:5]):
+            return False
+    else:
+        if any(normalize_text(skill) in title for skill in skills[:10]):
+            return False
 
     return True
-
 
 
 def job_filter_node(state: JobSearchState) -> dict:
@@ -71,20 +77,29 @@ def job_filter_node(state: JobSearchState) -> dict:
             reasons.append("Job type mismatch")
 
         # Location
-        if career.preferred_locations and normalize_text(job.job_type) in ['onsite', 'hybrid']:
-            if not any(loc.lower() in job.location.lower() for loc in career.preferred_locations):
+        job_type = normalize_text(job.job_type) if job.job_type else None
+        if career.preferred_locations and job_type != "remote":
+            if not any(
+                loc.lower() in job.location.lower()
+                for loc in career.preferred_locations
+            ):
                 reasons.append("Location mismatch")
 
         # Career stage
         if career_stage_mismatch(career.career_stage, job.career_stage):
             reasons.append("Career stage mismatch")
 
-        # Target role relevance
-        if role_mismatch(job.title, career.target_roles, career.skills_summary):
+        # Role relevance
+        if role_mismatch(
+            job.title,
+            career.target_roles,
+            career.skills_summary,
+            career.career_stage
+        ):
             reasons.append("Role mismatch")
 
-        # Salary (optional)
-        if salary_mismatch(getattr(job, "salary_range", None), career.expected_ctc):
+        # Salary
+        if salary_mismatch(job.salary_range, career.expected_ctc):
             reasons.append("Salary mismatch")
 
         if reasons:
@@ -96,3 +111,15 @@ def job_filter_node(state: JobSearchState) -> dict:
         "filtered_jobs": filtered,
         "rejected_jobs": rejected
     }
+
+
+if __name__ == "__main__":
+    from src.resources.mockData.newData import normalized_jobs
+    from src.resources.mockData.careerState import career
+
+    state = JobSearchState(
+        career_state=career,
+        normalized_jobs=normalized_jobs
+    )
+    
+    print(job_filter_node(state))

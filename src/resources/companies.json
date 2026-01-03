@@ -1,0 +1,62 @@
+[
+  {
+    "company_id": "openai",
+    "name": "OpenAI",
+    "career_page": "https://openai.com/careers",
+    "domains": ["ai", "ml"],
+    "tech_focus": ["llm", "nlp"],
+    "company_type": "product",
+    "locations": ["remote", "us"],
+    "preferred_roles": ["ai engineer", "ml engineer", "research engineer"],
+    "career_stage_hiring": ["mid", "senior"],
+    "priority": 5
+  },
+  {
+    "company_id": "google",
+    "name": "Google",
+    "career_page": "https://careers.google.com/jobs",
+    "domains": ["ai", "platform"],
+    "tech_focus": ["ml", "infra"],
+    "company_type": "product",
+    "locations": ["india", "remote"],
+    "preferred_roles": ["software engineer", "ml engineer"],
+    "career_stage_hiring": ["junior", "mid", "senior"],
+    "priority": 4
+  },
+  {
+    "company_id": "microsoft",
+    "name": "Microsoft",
+    "career_page": "https://careers.microsoft.com/us/en",
+    "domains": ["ai", "cloud"],
+    "tech_focus": ["azure", "ml"],
+    "company_type": "product",
+    "locations": ["india", "remote"],
+    "preferred_roles": ["ai engineer", "software engineer"],
+    "career_stage_hiring": ["mid", "senior"],
+    "priority": 4
+  },
+  {
+    "company_id": "zomato",
+    "name": "Zomato",
+    "career_page": "https://www.zomato.com/careers",
+    "domains": ["data", "ai"],
+    "tech_focus": ["recommendation", "ml"],
+    "company_type": "product",
+    "locations": ["india"],
+    "preferred_roles": ["data scientist", "ml engineer"],
+    "career_stage_hiring": ["junior", "mid"],
+    "priority": 3
+  },
+  {
+    "company_id": "swiggy",
+    "name": "Swiggy",
+    "career_page": "https://careers.swiggy.com",
+    "domains": ["data", "ai"],
+    "tech_focus": ["ml", "optimization"],
+    "company_type": "product",
+    "locations": ["india"],
+    "preferred_roles": ["ml engineer", "data scientist"],
+    "career_stage_hiring": ["junior", "mid"],
+    "priority": 3
+  }
+]

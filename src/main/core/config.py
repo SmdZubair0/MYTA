@@ -14,6 +14,14 @@ class Settings(BaseSettings):
     # Paths
     promptsPath:Path = Path("src/resources/prompts/")
     resumesPath:Path = Path("src/resources/resumes")
+    company_registry:Path = Path("src/resources/companies.json")
+
+    # jobs sites cofig
+    MAX_JOBS_FROM_LINKEDIN:int = 10
+
+    # career pages config
+    MAX_COMPANIES:int = 3
+    MAX_JOBS_PER_COMPANY:int = 10
 
     # recommendation configs
     MIN_FIT_SCORE: float = 0.45
