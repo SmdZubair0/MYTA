@@ -14,12 +14,15 @@ class JobSearchTarget(BaseModel):
     query: str
 
 class RawJobPosting(BaseModel):
-    title: Optional[str]
-    company: Optional[str]
-    location: Optional[str]
-    description: Optional[str]
+    title: Optional[str] = None
+    company: Optional[str] = None
+    location: Optional[str] = None
+    description: Optional[str] = None
+    job_type: Optional[List[str]] = None
+    employment_type: Optional[List[str]] = None
+    career_stage: Optional[List[str]] = None
     url: str
-    source: str            # linkedin | indeed | naukri
+    source: str
 
 class JobPosting(BaseModel):
     job_id: Optional[str] = None
@@ -30,7 +33,7 @@ class JobPosting(BaseModel):
     description: Optional[str] = None
     url: str
     source: str                # linkedin / company_site / other
-    salary_range: SalaryRange = None
+    salary_range: Optional[SalaryRange] = None
     career_stage: Literal["junior", "mid", "senior", "unknown"]
 
 class RejectedJob(BaseModel):
@@ -50,11 +53,10 @@ class JobSearchState(BaseModel):
 
     # generated
     search_queries: List[str] = []
+    search_targets: List[JobSearchTarget] = []
 
     raw_jobs: List[RawJobPosting] = []
-    discovered_jobs: List[JobPosting] = []
     normalized_jobs: List[JobPosting] = []
-    search_targets: List[JobSearchTarget] = []
 
     filtered_jobs: List[JobPosting] = []
     rejected_jobs: Optional[List[RejectedJob]] =[]

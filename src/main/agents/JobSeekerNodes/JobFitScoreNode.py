@@ -8,6 +8,22 @@ from src.main.schemas.JobSearchState import JobSearchState, ScoredJobPosting
 promptReader = PromptReader()
 JOB_FIT_SCORE_PROMPT = promptReader.read("job fit score")
 
+MAX_JOBS_TO_SCORE = 15
+DEFAULT_SCORE = 0.5
+
+def normalize_score(value) -> float:
+    try:
+        score = float(value)
+    except Exception:
+        return DEFAULT_SCORE
+
+    # Normalize common ranges
+    if score > 1:
+        score = score / 100 if score <= 100 else DEFAULT_SCORE
+
+    return max(0.0, min(score, 1.0))
+
+
 def job_fit_scoring_node(state: JobSearchState) -> dict:
     career = state.career_state
     scored = []
@@ -25,17 +41,26 @@ def job_fit_scoring_node(state: JobSearchState) -> dict:
         )
 
         try:
-            structured_data = extract_json(llm_response)
-        except json.JSONDecodeError:
-            continue
+            data = extract_json(llm_response)
+            fit_score = normalize_score(data.get("fit_score"))
+            fit_level = data.get("fit_level", "medium")
+            reasons = data.get("reasons", [])
+            missing = data.get("missing_requirements", [])
+
+        except Exception:
+            # Fallback scoring
+            fit_score = DEFAULT_SCORE
+            fit_level = "medium"
+            reasons = ["Automatic fallback score"]
+            missing = []
 
         scored.append(
             ScoredJobPosting(
                 job=job,
-                fit_score=structured_data.get("fit_score", 0.0),
-                fit_level=structured_data.get("fit_level", "medium"),
-                reasons=structured_data.get("reasons", []),
-                missing_requirements=structured_data.get("missing_requirements", [])
+                fit_score=fit_score,
+                fit_level=fit_level,
+                reasons=reasons,
+                missing_requirements=missing
             )
         )
 

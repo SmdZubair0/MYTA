@@ -1,6 +1,6 @@
 import json
 from typing import List
-from urllib.parse import quote_plus
+from urllib.parse import quote, quote_plus
 from dotenv import load_dotenv
 
 from src.main.utils.PromptReader import PromptReader
@@ -53,18 +53,18 @@ def build_job_search_targets(queries: List[str]) -> list[JobSearchTarget]:
             JobSearchTarget(
                 source="linkedin",
                 query=q,
-                search_url=f"https://www.linkedin.com/jobs/search/?keywords={quote_plus(q)}"
+                search_url=f"https://www.linkedin.com/jobs/{'-'.join(q.split())}"
             ),
-            JobSearchTarget(
-                source="indeed",
-                query=q,
-                search_url=f"https://www.indeed.com/jobs?q={quote_plus(q)}"
-            ),
-            JobSearchTarget(
-                source="naukri",
-                query=q,
-                search_url=f"https://www.naukri.com/{quote_plus(q)}-jobs"
-            )
+            # JobSearchTarget(
+            #     source="indeed",
+            #     query=q,
+            #     search_url=f"https://www.indeed.com/jobs?q={quote_plus(q)}"
+            # ),
+            # JobSearchTarget(
+            #     source="naukri",
+            #     query=q,
+            #     search_url=f"https://www.naukri.com/{quote_plus(q)}-jobs"
+            # )
         ])
 
     return targets
@@ -84,6 +84,7 @@ def job_search_intent_node(state: JobSearchState) -> dict:
 
 if __name__ == "__main__":
     load_dotenv()
+    print(build_job_search_targets(queries))
     # state = JobSearchState(career_state=career)
     # print(build_job_queries(career))
     # print(build_job_search_targets(queries))

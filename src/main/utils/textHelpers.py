@@ -12,3 +12,10 @@ def extract_json(text: str) -> dict:
 
 def normalize_text(value: Optional[str]) -> str:
     return value.lower().strip() if value else ""
+
+def normalize_url(base: str, href: str) -> str:
+    if href.startswith("http"):
+        return href
+    if href.startswith("/"):
+        return base.rstrip("/") + href
+    return base.rstrip("/") + "/" + href
