@@ -1,4 +1,5 @@
 from datetime import datetime
+from tkinter import NO
 from pydantic import BaseModel
 from typing import Optional, List, Literal
 
@@ -64,4 +65,8 @@ class JobSearchState(BaseModel):
     scored_jobs: List[ScoredJobPosting] = []
     recommended_jobs: List[ScoredJobPosting] = []
 
+    search_timestamp: Optional[datetime] = None
+
+class JobsFound(BaseModel):
+    recommended_jobs: List[ScoredJobPosting] = []
     search_timestamp: Optional[datetime] = None

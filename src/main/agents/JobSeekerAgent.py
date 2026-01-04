@@ -2,6 +2,7 @@ from langgraph.graph import StateGraph, START, END
 
 from src.main.schemas.JobSearchState import JobSearchState
 
+from src.main.agents.JobSeekerNodes.JobsFoundNode import return_found_jobs
 from src.main.agents.JobSeekerNodes.JobSearcherNode import job_search_intent_node
 from src.main.agents.JobSeekerNodes.JobDiscoverySitesNode import job_discovery_node
 from src.main.agents.JobSeekerNodes.JobDiscoveryCareerPagesNode import company_job_discovery_node
@@ -35,6 +36,7 @@ def build_job_search_graph():
     graph.add_node("filter_jobs", job_filter_node)
     graph.add_node("score_jobs", job_fit_scoring_node)
     graph.add_node("recommend_jobs", job_recommendation_node)
+    graph.add_node("found_jobs", return_found_jobs)
 
     # ----------------------------
     # Entry
@@ -60,6 +62,7 @@ def build_job_search_graph():
     graph.add_edge("normalize_jobs", "filter_jobs")
     graph.add_edge("filter_jobs", "score_jobs")
     graph.add_edge("score_jobs", "recommend_jobs")
-    graph.add_edge("recommend_jobs", END)
+    graph.add_edge("recommend_jobs", "found_jobs")
+    graph.add_edge("found_jobs", END)
 
     return graph.compile()
